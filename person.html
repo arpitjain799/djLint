@@ -10,8 +10,6 @@
         </p>
     {%- endif %}
 {%- endmacro %}
-
-
 {% macro link_detail(icon, value, href) -%}
     {% call(value, href) detail(icon, value, href) -%}
         <a href="{{ href }}">{{ value }}</a>
