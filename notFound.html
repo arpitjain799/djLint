@@ -1,24 +1,20 @@
 {% extends "layout.html" %}
-
 {% block title %}{{ __t('apostrophe:notFoundPageTitle') }}{% endblock %}
-
 {% block main %}
-  <section class="apos-not-found">
-    <div class="apos-not-found__container">
-      <div class="apos-not-found__content">
-        <p class="apos-not-found__error-code">{{ __t('apostrophe:notFoundPageStatusCode') }}</p>
-        <h1 class="apos-not-found__message">
-          {{ __t('apostrophe:notFoundPageMessage') }}
-          <a class="apos-not-found__home-link" href="/">{{ __t('apostrophe:backToHome') }}</a>
-        </h1>
-      </div>
-    </div>
-  </section>
-
+    <section class="apos-not-found">
+        <div class="apos-not-found__container">
+            <div class="apos-not-found__content">
+                <p class="apos-not-found__error-code">{{ __t('apostrophe:notFoundPageStatusCode') }}</p>
+                <h1 class="apos-not-found__message">
+                    {{ __t('apostrophe:notFoundPageMessage') }}
+                    <a class="apos-not-found__home-link" href="/">{{ __t('apostrophe:backToHome') }}</a>
+                </h1>
+            </div>
+        </div>
+    </section>
 {% endblock %}
-
 {% block afterMain %}
-  <style>
+    <style>
     .apos-not-found {
       display: flex;
       justify-content: center;
@@ -92,5 +88,5 @@
       0% {opacity:0;}
       100% {opacity:1;}
     }
-  </style>
+    </style>
 {% endblock %}
