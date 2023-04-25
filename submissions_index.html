@@ -1,9 +1,10 @@
 {% extends "wagtailadmin/base.html" %}
 {% load i18n wagtailadmin_tags %}
-{% block titletag %}{% blocktrans trimmed with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}{% endblock %}
+{% block titletag %}
+    {% blocktrans trimmed with form_title=form_page.title|capfirst %}Submissions of {{ form_title }}{% endblocktrans %}
+{% endblock %}
 {% block extra_js %}
     {{ block.super }}
-
     <script>
         $.fn.datetimepicker.defaults.i18n.wagtail_custom_locale = {
             months: wagtailConfig.STRINGS.MONTHS,
@@ -82,49 +83,46 @@
 {% endblock %}
 {% block content %}
     {% fragment as form_actions %}
-        <div class="dropdown dropdown-button">
-            <a href="{{ view.xlsx_export_url }}" class="button bicolor button--icon">
-                {% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}
-            </a>
-            <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
-            <ul>
-                <li>
-                    <a class="button bicolor button--icon" href="{{ view.csv_export_url }}">
-                        {% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}
-                    </a>
-                </li>
-            </ul>
-        </div>
-    {% endfragment %}
-
-    {% include "wagtailadmin/shared/header.html" with classname="w-header--no-border" title=page_title subtitle=form_page.title|capfirst icon="form" merged=1 extra_actions=form_actions %}
-
-    <div class="report filterable">
-        <div class="report__results w-overflow-y-hidden w-overflow-x-scroll w-pb-6">
-            {% if submissions %}
-                <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}" method="get">
-                    {% include "wagtailforms/list_submissions.html" %}
-                    {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
-                </form>
-            {% else %}
-                <p class="no-results-message">{% blocktrans trimmed with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}</p>
-            {% endif %}
-        </div>
-        <div class="filterable__filters">
-            <h2>{% trans 'Filter' %}</h2>
-            <form action="" method="get" novalidate>
-                <button
-                    class="button button-longrunning"
+    <div class="dropdown dropdown-button">
+        <a href="{{ view.xlsx_export_url }}" class="button bicolor button--icon">
+            {% icon name="download" wrapped=1 %}{% trans 'Download XLSX' %}
+        </a>
+        <div class="dropdown-toggle">{% icon name="arrow-down" %}</div>
+        <ul>
+            <li>
+                <a class="button bicolor button--icon" href="{{ view.csv_export_url }}">
+                    {% icon name="download" wrapped=1 %}{% trans 'Download CSV' %}
+                </a>
+            </li>
+        </ul>
+    </div>
+{% endfragment %}
+{% include "wagtailadmin/shared/header.html" with classname="w-header--no-border" title=page_title subtitle=form_page.title|capfirst icon="form" merged=1 extra_actions=form_actions %}
+<div class="report filterable">
+    <div class="report__results w-overflow-y-hidden w-overflow-x-scroll w-pb-6">
+        {% if submissions %}
+            <form action="{% url 'wagtailforms:delete_submissions' form_page.id %}"
+                  method="get">
+                {% include "wagtailforms/list_submissions.html" %}
+                {% include "wagtailadmin/shared/pagination_nav.html" with items=page_obj %}
+            </form>
+        {% else %}
+            <p class="no-results-message">
+                {% blocktrans trimmed with title=form_page.title %}There have been no submissions of the '{{ title }}' form.{% endblocktrans %}
+            </p>
+        {% endif %}
+    </div>
+    <div class="filterable__filters">
+        <h2>{% trans 'Filter' %}</h2>
+        <form action="" method="get" novalidate>
+            <button class="button button-longrunning"
                     type="submit"
                     data-controller="w-progress"
-                    data-action="w-progress#activate"
-                >
-                    {% icon name="spinner" %}{% trans 'Apply filters' %}
-                </button>
-                {% for field in select_date_form %}
-                    {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
-                {% endfor %}
-            </form>
-        </div>
+                    data-action="w-progress#activate">{% icon name="spinner" %}{% trans 'Apply filters' %}</button>
+            {% for field in select_date_form %}
+                {% include "wagtailadmin/shared/field_as_li.html" with field=field %}
+            {% endfor %}
+        </form>
     </div>
+</div>
 {% endblock %}

@@ -34,21 +34,32 @@
                         {% if icon %}
                             {% icon classname="w-header__glyph" name=icon %}
                         {% elif avatar %}
-                            <div class="w-header__glyph avatar large"><img src="{{ avatar }}" alt="" /></div>
+                            <div class="w-header__glyph avatar large">
+                                <img src="{{ avatar }}" alt="" />
+                            </div>
                         {% endif %}
-                        {{ title }}{% if subtitle %} <span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
+                        {{ title }}
+                        {% if subtitle %}<span class="w-header__subtitle">{{ subtitle }}</span>{% endif %}
                     </h1>
                 {% endif %}
                 {% if description %}<div class="w-header__description">{{ description }}</div>{% endif %}
             </div>
             {% if search_url %}
-                <form class="col search-form" action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}" method="get" novalidate role="search">
+                <form class="col search-form"
+                      action="{% url search_url %}{% if query_parameters %}?{{ query_parameters }}{% endif %}"
+                      method="get"
+                      novalidate
+                      role="search">
                     {% for field in search_form %}
                         {% include "wagtailadmin/shared/field.html" with field=field classname="w-mb-0 -w-mt-2.5" sr_only_label=True icon="search" %}
                     {% endfor %}
                     {% comment %}Add an initial disabled & hidden submit button so that pressing 'enter' will not submit form. Reload not required as the content is dynamically loaded.{% endcomment %}
-                    <div class="visuallyhidden"><input disabled type="submit" aria-hidden="true"/></div>
-                    <div class="submit visuallyhidden"><input type="submit" value="Search" class="button" /></div>
+                    <div class="visuallyhidden">
+                        <input disabled type="submit" aria-hidden="true" />
+                    </div>
+                    <div class="submit visuallyhidden">
+                        <input type="submit" value="Search" class="button" />
+                    </div>
                 </form>
             {% elif search %}
                 {{ search }}
@@ -64,9 +75,7 @@
                     </div>
                 {% endif %}
             {% endblock %}
-            {% if extra_actions %}
-                {{ extra_actions }}
-            {% endif %}
+            {% if extra_actions %}{{ extra_actions }}{% endif %}
         </div>
     </div>
     {% block extra_rows %}{{ extra_rows }}{% endblock %}

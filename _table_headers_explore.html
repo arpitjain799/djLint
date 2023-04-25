@@ -1,5 +1,4 @@
 {% load i18n wagtailadmin_tags %}
-
 {% comment %}
 
 Table headers for the page listing, when in 'explore' mode. Expects the following variables:
@@ -15,17 +14,18 @@ parent_page: The page instance currently being browsed (used to generate the cor
 ordering: the current sort parameter
 
 {% endcomment %}
-
 <tr class="table-headers">
     {% if show_ordering_column %}
         <th class="ord{% if orderable and ordering == 'ord' %} ord--active{% endif %}">
             {% if orderable %}
                 {% if ordering == "ord" %}
-                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}" title="{% trans 'Disable ordering of child pages' %}">
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}"
+                       title="{% trans 'Disable ordering of child pages' %}">
                         {% icon name="order" %}{% trans 'Sort' %}
                     </a>
                 {% else %}
-                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord" title="{% trans 'Enable ordering of child pages' %}">
+                    <a href="{% url 'wagtailadmin_explore' parent_page.id %}?ordering=ord"
+                       title="{% trans 'Enable ordering of child pages' %}">
                         {% icon name="order" %}{% trans 'Sort' %}
                     </a>
                 {% endif %}
@@ -50,7 +50,6 @@ ordering: the current sort parameter
     </th>
     <th class="type">
         {% trans 'Type' as type_label %}
-
         {% if sortable and sortable_by_type %}
             {% page_table_header_label label=type_label sortable=1 sort_field='content_type' parent_page_title=parent_page.title %}
         {% else %}
